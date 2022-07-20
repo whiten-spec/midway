@@ -7,7 +7,7 @@ import { Validate } from '@midwayjs/validate';
 // import { UserModel } from '../model/user.model';
 
 @Controller('/api/user')
-export class APIController {
+export class UserController {
   @Inject()
   ctx: Context;
 

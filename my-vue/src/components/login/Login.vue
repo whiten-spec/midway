@@ -21,14 +21,18 @@
   </div>
 </template>
 <script>
+import http from '../../api/http'
+
 export default {
   name: 'Login',
   data () {
     return {
       ruleForm: {
-        pass: '',
-        checkPass: '',
-        age: ''
+        username: '',
+        password: ''
+      },
+      rules: {
+
       }
     }
   },
@@ -36,9 +40,23 @@ export default {
     submitForm (formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {
-          alert('submit success!')
+          http.post('api/user/login/', {
+            username: this.ruleForm.username,
+            password: this.ruleForm.password
+          }).then(result => {
+            if (result.data && result.data.success === true && result.data.data.length > 0) {
+              alert('login success!')
+              sessionStorage.setItem('isLogin', 1)
+              this.$router.push('/hello')
+              return true
+            } else {
+              alert('username or password error!')
+              return false
+            }
+          })
         } else {
           console.log('error submit!!')
+          alert('error submit!!')
           return false
         }
       })

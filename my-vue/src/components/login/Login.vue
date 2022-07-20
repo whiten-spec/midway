@@ -47,7 +47,7 @@ export default {
             if (result.data && result.data.success === true && result.data.data.length > 0) {
               alert('login success!')
               sessionStorage.setItem('isLogin', 1)
-              this.$router.push('/hello')
+              this.$router.push('/hello').catch(() => {})
               return true
             } else {
               alert('username or password error!')

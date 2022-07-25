@@ -1,6 +1,9 @@
+import { UserInfo } from './common/user.info';
 /**
- * @description User-Service parameters
+ * @description 将当前登录的用户信息保存到context中
  */
-export interface IUserOptions {
-  uid: number;
+declare module '@midwayjs/core' {
+  interface Context {
+    user: UserInfo;
+  }
 }

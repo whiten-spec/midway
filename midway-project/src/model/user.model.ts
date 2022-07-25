@@ -28,4 +28,20 @@ export class UserModel {
       },
     });
   }
+
+  /**
+   * 根据用户名和密码获取新增用户
+   * @param username {String} 用户名
+   * @param password {String} 用户密码
+   */
+  async addUser(username, password): Promise<UserEntity> {
+    const user = new UserEntity();
+    user.username = username;
+    user.password = password;
+    return this.userRepo.save(user);
+  }
+
+  async deleteUser(userId) {
+    return this.userRepo.delete(userId);
+  }
 }

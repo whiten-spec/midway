@@ -7,12 +7,15 @@ import * as orm from '@midwayjs/orm';
 // import { DefaultErrorFilter } from './filter/default.filter';
 // import { NotFoundFilter } from './filter/notfound.filter';
 import { ReportMiddleware } from './middleware/report.middleware';
+import * as jwt from '@midwayjs/jwt';
+import { JwtMiddleware } from './middleware/jwt.middleware';
 
 @Configuration({
   imports: [
     koa,
     validate,
     orm,
+    jwt,
     {
       component: info,
       enabledEnvironment: ['local'],
@@ -26,7 +29,7 @@ export class ContainerLifeCycle {
 
   async onReady() {
     // add middleware
-    this.app.useMiddleware([ReportMiddleware]);
+    this.app.useMiddleware([ReportMiddleware, JwtMiddleware]);
     // add filter
     // this.app.useFilter([NotFoundFilter, DefaultErrorFilter]);
   }

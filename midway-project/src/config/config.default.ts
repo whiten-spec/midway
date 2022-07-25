@@ -8,16 +8,26 @@ export default {
     port: 7001,
   },
   orm: {
-    type: 'mysql',
-    host: '101.132.79.222',
-    port: 3306,
-    username: 'root',
-    password: 'root',
+    type: 'postgres',
+    host: '124.223.64.166',
+    port: 5432,
+    username: 'postgres',
+    password: 'postgres',
     database: 'testdb',
-    synchronize: false,
+    synchronize: true,
     logging: false,
     entities: [UserEntity],
     migrations: [],
     subscribers: [],
+  },
+  app: {
+    jwt: {
+      prefix: '/api', // 指定已/api开头的接口地址需要拦截
+      ignore: ['/api/user/login'], // 指定该接口地址，不需要拦截
+    },
+  },
+  jwt: {
+    secret: 'gsafety', // fs.readFileSync('xxxxx.key')
+    expiresIn: '2d', // https://github.com/vercel/ms
   },
 } as MidwayConfig;

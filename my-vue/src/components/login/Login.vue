@@ -40,19 +40,23 @@ export default {
     submitForm (formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {
-          http.post('api/user/login/', {
+          http.post('api/user/login', {
             username: this.ruleForm.username,
             password: this.ruleForm.password
           }).then(result => {
-            if (result.data && result.data.success === true && result.data.data.length > 0) {
+            if (result.data && result.data.success === true && result.data.data && result.data.data.token.length > 0) {
               alert('login success!')
-              sessionStorage.setItem('isLogin', 1)
+              // sessionStorage.setItem('isLogin', 1)
+              // 调整登录判断为token
+              localStorage.setItem('token', result.data.data.token)
               this.$router.push('/hello').catch(() => {})
               return true
             } else {
               alert('username or password error!')
               return false
             }
+            // 登录提示信息改为后台返回信息
+            // alert(result.data.message)
           })
         } else {
           console.log('error submit!!')

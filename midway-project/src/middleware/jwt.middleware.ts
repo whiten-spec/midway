@@ -27,6 +27,8 @@ export class JwtMiddleware {
       }
       // 验证token，过期会抛出异常
       const jwt = await this.jwtService.verify(token, { complete: true });
+      // 可通过jwt+redis控制用户token失效问题，本示例不添加redis,仅验证jwt token
+
       // jwt中存储的user信息
       const payload = jwt['payload'];
       //获取调用接口的用户信息
